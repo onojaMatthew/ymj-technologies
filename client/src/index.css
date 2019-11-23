@@ -1,0 +1,46 @@
+
+.App button {
+  background: linear-gradient(to right, #0a7e07 0%, #0a7e07 100%) !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+  width: 200px !important;
+  color: #fff;
+}
+.bg-light {
+  background: linear-gradient(to right, #0a7e07 0%, #0a7e07 100%) !important;
+  color: #fff !important;
+  padding: 15px !important;
+}
+.particles {
+  background: linear-gradient(to right, #0a7e07 0%, #0a7e07 100%);
+}
+.reg-particles {
+  margin-top: -650px;
+}
+.particle-page {
+  margin-top: -700px;
+}
+
+.loanCard {
+   height: 500px;
+   padding-top: 50px
+}
+
+@media only screen and (max-width: 480px) {
+  .loanCard {
+    height: 500px;
+    padding-top: 100px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .reg-particles {
+    margin-top: -150px;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  .particle-page {
+    margin-top: -150px;
+    padding: 15px;
+  }
+}
