@@ -86,6 +86,46 @@ exports.uploadPhoto = ( req, res ) => {
     } );
 }
 
+exports.postToCart = ( req, res ) => {
+  const { productId } = req.params;
+  if ( !productId ) return res.status( 400 ).json( { error: "Product must have an ID" } );
+  Product.findById( { _id: productId } )
+    .then( product => {
+      if ( !product ) return res.status( 400 ).json( { error: "Product not found" } );
+      return req.user.addToCart( product );
+    } )
+    .catch( err => {
+      res.status( 400 ).json( { error: err.message } );
+    } );
+}
+
+exports.getCart = ( req, res ) => {
+  req.user
+    .populate( "cart.items.productId" )
+    .execPopulate()
+    .then( user => {
+      if ( !user ) return res.status( 400 ).json( { error: "Cart is empty" } );
+      const products = user.cart.items
+      res.json( products );
+    } )
+    .catch( err => {
+      res.status( 400 ).json( { error: err.message } );
+    } );
+}
+
+exports.deleteFromCart = ( req, res ) => {
+  const { productId } = req.body;
+  if ( !productId ) return res.status( 400 ).json( { error: "Can not delete cart item" } );
+  req.user
+    .removeFromCart( productId )
+    .then( item => {
+      if ( !item ) return res.status( 400 ).json( { error: "Request failed. Please try again" } );
+      res.json( item );
+    } )
+    .catch( err => {
+      res.status( 400 ).json( { error: err.message } );
+    } );
+}
 
 /**
  * Deletes user account

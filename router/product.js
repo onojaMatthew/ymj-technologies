@@ -6,11 +6,13 @@ const {
   getProducts,
   photo,
   uploadPhoto,
-  deleteProduct
+  deleteProduct,
+  postToCart,
 } = require( "../controller/product" );
 
 const router = express.Router();
 
+router.post( "/cart", postToCart );
 router.post( "/product", addProduct );
 router.get( "/products", getProducts );
 router.get( "/product/:productId", getProduct );
