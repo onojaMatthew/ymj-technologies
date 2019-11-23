@@ -1,6 +1,6 @@
 const mongoose = require( "mongoose" );
 const jwt = require( "jsonwebtoken" );
-const { Schema } = mongoose;
+const { Schema, ObjectId } = mongoose;
 
 /**
  * We create the user schema
@@ -11,6 +11,12 @@ const userSchema = new Schema( {
   password: { type: String },
   photo: { data: Buffer, ContentType: String },
   role: { type: String, enum: [ "user", "admin", "support" ], default: "user" },
+  cart: {
+    items: [ { 
+      productId: { type: ObjectId, required: true, ref: "Product" },
+      quantity: { type: Number, required: true }
+    }]
+  }
   createdAt: { type: Date, default: Date().now }
 },{
   timestamps: true,
@@ -21,6 +27,27 @@ const userSchema = new Schema( {
  */
 userSchema.index( { otp: 1 }, { expireAfterSeconds: 300 } );
 
+userSchema.methods.addToCart = function ( product ) {
+  const cartProductIndx = this.cart.items.findIndex( cp => {
+    return cp.productId.toString() === product._id.toString();
+  } );
+  const newQuantity = 1;
+  const updatedCartItems = [ ...this.cart.items ];
+  if ( cartProductIndx >= 0 ) {
+    newQuantity = this.cart.items[ cartProductIndx ].quantity + 1;
+    updatedCartItems[ cartProductIndx ].quantity = newQuantity;
+  } else {
+    updatedCartItems.push( {
+      productId: product._id,
+      quantity: newQuantity
+    })
+  }
+  const updatedCart = {
+    items: updatedCartItems
+  }
+  this.cart = updatedCart;
+  return this.save();
+}
 /**
  * We generate a token for the user
  */

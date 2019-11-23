@@ -6,6 +6,7 @@ const productSchema = new Schema( {
   price: { type: Number, required: [ true, "Product price is required" ] },
   imageUrl: { data: Buffer, ContentType: String },
   description: { type: String, required: [ true, "Product description is required" ] },
+  userId: { type: ObjectId, required: true, ref: "User"},
   createdAt: { type: Date, default: Date().now},
 } )
 
