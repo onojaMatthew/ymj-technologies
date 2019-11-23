@@ -8,31 +8,8 @@ const { Schema } = mongoose;
 const userSchema = new Schema( {
   email: { type: String, unique: [ true, "Email address already in use by another user"] },
   name: { type: String },
-  parentId: { type: String },
-  phone: { type: String, required: [ true, "Your phone number is required"] },
-  refererPhone: { type: String },
-  address: { type: String, required: [ true, "Address is not provided"]},
-  balance: { type: Number, default: 0 },
-  request: [ {
-    name: { type: String },
-    balance: { type: Number },
-    amount: { type: Number },
-    date: { type: String },
-    time: { type: String },
-    status: { type: Boolean }
-  } ],
-  loanRequestCount: { type: Number, default: 0 },
-  loan: { type: Number, default: 0 },
-  earnings: [ {
-    amount: Number,
-    date: { type: Date, default: Date().now }
-  }],
-  otp: { type: String, expires: "3m"},
-  networks: { type: Number, default: 0 },
-  cardBought: { type: Boolean, default: false },
+  password: { type: String },
   photo: { data: Buffer, ContentType: String },
-  role: { type: String, enum: [ "admin", "agent", "support" ], default: "agent" },
-  profileUpdated: { type: Boolean, default: false },
 },{
   timestamps: true,
 });
