@@ -3,9 +3,8 @@ const upload = require( "../middleware/fileupload" );
 const {
   signIn,
   signup,
-  Signout,
+  signout,
   deleteUser,
-  updateUserInfo,
   fetchUser,
   fetchUsers,
   uploadPhoto,
@@ -18,10 +17,10 @@ const router = express.Router();
 router.post( "/signup", signup );
 router.post( "/login", signIn );
 router.get( "/signout", signout );
-router.get( "/users", requireLogin, fetchUsers );
-router.get( "/user/:userId", requireLogin, fetchUser );
+router.get( "/users", fetchUsers );
+router.get( "/user/:userId", fetchUser );
 router.get( "/profile/photo/:userId", photo );
 router.put( "/profile/upload/:userId", upload.single("photo"), uploadPhoto );
-router.delete( "/user/:userId", requireLogin, deleteUser );
+router.delete( "/user/:userId", deleteUser );
 
 module.exports = router;

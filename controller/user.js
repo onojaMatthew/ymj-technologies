@@ -28,7 +28,7 @@ exports.signup = ( req, res ) => {
 
           newUser.save();
           const token = newUser.generateToken();
-          const { _id, email, name, password } = newUser;
+          const { _id, email, name, role } = newUser;
           res.cookie( "token", token, { expire: new Date() + 9999 } );
           res.header( "x-auth-token", token ).json( {
             token,
@@ -56,7 +56,7 @@ exports.signIn = ( req, res ) => {
         .then( passwordMatched => {
           if ( !passwordMatched ) return res.status( 400 ).json( { error: "Invalid email or password" } );
           const token = user.generateToken();
-          const { _id, email, name, cardBought, phone, parentId, refererPhone, role, profileUpdated } = user;
+          const { _id, email, name, role } = user;
           const refererLink = `${ process.env.API_URL }/ojirehprime/agent/${ _id }`;
           res.cookie( "token", token, { expire: new Date() + 9999 } );
           res.json( {

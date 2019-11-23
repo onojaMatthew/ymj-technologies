@@ -10,6 +10,8 @@ const userSchema = new Schema( {
   name: { type: String },
   password: { type: String },
   photo: { data: Buffer, ContentType: String },
+  role: { type: String, enum: [ "user", "admin", "support" ], default: "user" },
+  createdAt: { type: Date, default: Date().now }
 },{
   timestamps: true,
 });
