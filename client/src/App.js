@@ -31,7 +31,7 @@ class App extends Component {
             <Route exact path="/editProfile" name="Edit Page" render={(props) => <EditPage {...props}/>} />
             <Route exact path="/signup" name="Sign up" render={props => <AdminSignup {...props} />} />
             <Route exact path="/signin" name="Sign up" render={props => <AdminSignin {...props} />} />
-            <Route exact path="/product/:prodId" name="Product Details" render={(props) => <Product {...props} />} />
+            <Route exact path="/products/:prodId" name="Product Details" render={(props) => <Product {...props} />} />
             {Auth.isUserAuthenticated() ? (
               <Route path="/" name="Index" render={props => <DefaultLayout {...props} />} />
             ) : <Redirect to="/home" />}
