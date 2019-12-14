@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.scss';
 import Auth from "./helper/Auth";
 import Home from './views/Pages/Home/Home';
+import Product from './views/Pages/Product/Product';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -24,12 +25,13 @@ class App extends Component {
       <BrowserRouter>
         <React.Suspense fallback={loading()}>
           <Switch>
-            <Route exact path="/home" name="Home" component={(props) => <Home {...props} />} />
+            <Route exact path="/home" name="Home" render={(props) => <Home {...props} />} />
             <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
             <Route exact path="/register" name="Register Page" render={props => <Register {...props} />} />
             <Route exact path="/editProfile" name="Edit Page" render={(props) => <EditPage {...props}/>} />
             <Route exact path="/signup" name="Sign up" render={props => <AdminSignup {...props} />} />
             <Route exact path="/signin" name="Sign up" render={props => <AdminSignin {...props} />} />
+            <Route exact path="/product/:prodId" name="Product Details" render={(props) => <Product {...props} />} />
             {Auth.isUserAuthenticated() ? (
               <Route path="/" name="Index" render={props => <DefaultLayout {...props} />} />
             ) : <Redirect to="/home" />}
