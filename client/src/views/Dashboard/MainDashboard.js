@@ -9,7 +9,6 @@ import {
 } from 'reactstrap';
 import { connect } from "react-redux";
 import { isAuthenticated } from "../../helper/authenticate";
-import SocialShare from '../Share/SocialShare';
 import { updateParentId, getByParentId, getUser, awardBonus } from '../../store/actions/action_user';
 
 class Dashboard extends Component {
@@ -118,12 +117,7 @@ class Dashboard extends Component {
               }}>
                 Your referer Link: {refererLink}
               </div>
-              <Row className="justify-content-md-center">
-                <Col xs="12" xl="6">
-                  <SocialShare />
-                  <p>Share to your social Networks</p>
-                </Col>
-              </Row>
+             
             </Col>
           </Row>
         </div>

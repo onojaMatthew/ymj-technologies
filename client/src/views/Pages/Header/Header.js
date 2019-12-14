@@ -4,18 +4,23 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
+  Row,
+  Col,
   Nav,
   NavItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
+  Button,
+  Form,
+  Input,
   DropdownMenu,
   DropdownItem,
   Container,
   // NavbarText
 } from 'reactstrap';
 
-import logo from "../../../assets/img/brand/ojirehprime_logo.png";
+import logo from "../../../assets/img/brand/ymj.jpeg";
 
 const Header = ( props ) => {
   const [ isOpen, setIsOpen ] = useState( false );
@@ -36,78 +41,57 @@ const Header = ( props ) => {
       <Navbar className="light"  expand="md">
         <Container>
         <NavbarBrand href="/">
-          <img src={logo} alt="" />
+            <img src={logo} alt="" style={{ height: 40, }} />
+            <span
+              style={{
+                color: "#fff",
+                marginLeft: 15,
+                fontSize: "26px"
+              }}>YMJTechnologies</span>
         </NavbarBrand>
-          <NavbarToggler onClick={toggle} className="menu" />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink
-                href="https://ojirehprime.com"
-                style={styles.nav}
-              >Home</NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
+        <Col xs="12" xl="6">
+          <Form class="form-inline">
+            <Row className="justify-content-center">
+              <Col xs="10" xl="10">
+                <Input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+              </Col>
+              <Col xs="2" xl="2">
+                <Button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</Button>
+              </Col>
+           
+            </Row>
+          </Form>
+        </Col>
+        <NavbarToggler onClick={toggle} className="menu" />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="mr-auto" navbar>
+              <NavItem>
+                <NavLink
+                  href="https://ojirehprime.com"
+                  style={styles.nav}
+                >Home</NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret style={styles.nav}>
-                  About Us
-              </DropdownToggle>
-                <DropdownMenu right>
+                  Account
+                </DropdownToggle>
+                <DropdownMenu center>
+                <DropdownItem>
+                  <NavLink
+                    href="/login"
+                  >LOGIN</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink
+                    href="/register"
+                  >CREATE AN ACCOUNT</NavLink>
+                </DropdownItem>
                   <DropdownItem>
-                    <NavLink
-                      style={styles.about}
-                      href={`https://ojirehprime.com/about-us/#wwd`}>
-                      What We Do
-                    </NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink
-                      style={styles.about}
-                      href={`https://ojirehprime.com/about-us/#vision`}>
-                      Our Vision, Mission, Core Values
-                    </NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink
-                      style={styles.about}
-                      href={`https://ojirehprime.com/about-us/#roadmap`}>
-                      Roadmap
-                    </NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink
-                      style={styles.about}
-                      href={`https://ojirehprime.com/about-us/#team`}>
-                      Our Team
-                    </NavLink>
-                  </DropdownItem>
+                    <i className="cil-cart"></i>
+                </DropdownItem>
                 </DropdownMenu>
-                </UncontrolledDropdown>
-              <NavItem>
-                <NavLink
-                  href={`https://ojirehprime.com/faqs`}
-                  style={styles.nav}
-                >FAQs</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href={`https://ojirehprime.com/blog`}
-                  style={styles.nav}
-                >Blog</NavLink>
-                
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href={`https://ojirehprime.com/careers`}
-                  style={styles.nav}
-                >Careers</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="https://ojireh.com"
-                  style={styles.nav}
-                >Online Store</NavLink>
-              </NavItem>
-          </Nav>
+              </UncontrolledDropdown>
+            </Nav>
           </Collapse>
         </Container>
       </Navbar>
