@@ -9,7 +9,8 @@ const orderSchema = new Schema( {
   user: { 
     name: { type: String, required: true },
     userId: { type: ObjectId, ref: "User", required: true }
-  }
+  },
+  createdAt: { type: Date, default: Date().now }
 } );
 
 const Order = mongoose.model( "Order", orderSchema );

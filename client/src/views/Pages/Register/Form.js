@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  // Button,
   Card,
   CardBody,
   Alert,
   Col,
   Container,
   Form,
-  // Spinner,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -16,7 +14,6 @@ import {
   Row
 } from 'reactstrap';
 import Ravepay from "../../Payment/Ravepay";
-import logo from "../../../assets/img/brand/ojirehprime_logo.png";
 
 const RegisterationForm = ( {
   registration,
@@ -39,10 +36,6 @@ const RegisterationForm = ( {
           <Col md="9" lg="7" xl="6">
             <Card className="mx-4">
               <CardBody className="p-4">
-                <Row className="justify-content-md-center m-4">
-                  <img src={logo} alt="logo" />
-                </Row>
-                <p className="text-center">Welcome to Ojirehprime</p>
                 <Form onSubmit={onRegister}>
                   <p className="text-muted">Kindly create an account</p>
                   {registration.error && registration.error.length > 0 ? <Alert color="danger">{registration.error}</Alert> : null}

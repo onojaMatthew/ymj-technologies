@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Card, CardBody, CardGroup, Spinner, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import logo from "../../../assets/img/brand/ojirehprime_logo.png";
 
 const LoginForm = ( { errMsg, toggelState, login, otp, handleChange, onLogin}) =>{
   return (
@@ -10,9 +9,6 @@ const LoginForm = ( { errMsg, toggelState, login, otp, handleChange, onLogin}) =
           <CardGroup>
             <Card>
               <CardBody>
-                <Row className="justify-content-md-center m-4">
-                  <img src={logo} alt="logo" />
-                </Row>
                 <p className="text-center">We sent a verification code to your phone number</p>
                 <Form onSubmit={onLogin}>
                   {errMsg.length > 0 ? <p style={{ color: "#ff0000" }}>{errMsg}</p> : null}

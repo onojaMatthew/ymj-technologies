@@ -1,4 +1,5 @@
 const { Product } = require( "../models/product" );
+const { Order } = require( "../models/order" );
 
 exports.addProduct = ( req, res ) => {
   const { role, userId } = req.params;
@@ -127,6 +128,41 @@ exports.deleteFromCart = ( req, res ) => {
     } );
 }
 
+exports.postOrder = ( req, res ) => {
+  req.user
+    .populate( "cart.items.productId" )
+    .execPopulate()
+    .then( user => {
+      const products = user.cart.items.map( item => {
+        return { quantity: item.quantity, product: {...item.productId._doc} }
+      } );
+      const order = new Order( {
+        user: {
+          name: req.user.name,
+          userId: req.user._id
+        },
+        products
+      } )
+      return order.save();
+    } )
+    .then( () => {
+      return req.user.clearCart();
+    })
+    .catch( err => {
+      res.status( 400 ).json( { err: err.message } );
+    } );
+}
+
+exports.getOrders = ( req, res ) => {
+  Order.find( { _id: req.user._id } )
+    .then( orders => {
+      if ( !orders ) return res.status( 400 ).json( { error: "Order list is emptyp" } );
+      res.json( orders );
+    } )
+    .catch( err => {
+      res.status( 400 ).json( { error: err.message } );
+    } );
+}
 /**
  * Deletes user account
  */

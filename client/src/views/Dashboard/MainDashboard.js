@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+
 import {
   Card,
   CardBody,
@@ -9,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { isAuthenticated } from "../../helper/authenticate";
 import SocialShare from '../Share/SocialShare';
-import { updateParentId, getByParentId, getUser } from '../../store/actions/action_user';
+import { updateParentId, getByParentId, getUser, awardBonus } from '../../store/actions/action_user';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,12 +22,14 @@ class Dashboard extends Component {
   }
 
   async componentDidMount() {
-    const { updateParentId, getUser, getByParentId } = this.props;
+    const { updateParentId, getUser, getByParentId, awardBonus } = this.props;
+    const userId = isAuthenticated().user._id;
     document.title = "Dashboard"
     try {
       await updateParentId();
-      await getUser();
+      await getUser(userId);
       await getByParentId();
+      await awardBonus();
     }catch(err) {}
   }
 
@@ -42,24 +45,31 @@ class Dashboard extends Component {
     if ( earnings && earnings.length ) {
       let allEarnings = [];
       for ( let i = 0; i < earnings.length; i++ ) {
+        const timestamp = earnings[ i ]._id.toString().substring( 0, 8 );
+        const timeEarned = new Date( parseInt( timestamp, 16 ) * 1000 ).toISOString().split( "T" )[ 0 ];
         const date = new Date();
         date.setDate( date.getDate() - 30 );
         const dateString = date.toISOString().split( 'T' )[ 0 ];
-        // if ( earnings[ i ] && earnings[ i ].date && earnings[ i ].date.toISOString().split( "T" )[ 0 ] >= dateString ) {
-        //   allEarnings.push( earnings[ i ].amount );
-        // }
+        if ( timeEarned >= dateString ) {
+          allEarnings.push( earnings[ i ].amount );
+        }
       }
       sumEarning = allEarnings.reduce( ( a, b ) => a + b, 0 );
     }
-    
+
     return (
       <div className="card animated fadeIn">
         <div className="card-body">
           <Row>
-            <Col xs="12" sm="6" lg="3">
+            <Col xs="12" sm="6" lg="4">
               <Card className="text-white bg-success">
                 <CardBody className="pb-0">
-                  <div><h3><strong>Bal</strong>: <strong>&#8358;{user.balance ? user.balance : 0}.00</strong></h3></div>
+                  <div>
+                    <h3>
+                      <strong>Bal</strong>: <strong>
+                        &#8358;{new Date().getDate() < 18 ? 5000 + ".00" : ( user.balance && user.balance ) + ".00"}</strong>
+                    </h3>
+                  </div>
                   <div className="mb-4">
                     <p><Link
                       to="/account"
@@ -73,7 +83,7 @@ class Dashboard extends Component {
               </Card>
             </Col>
 
-            <Col xs="12" sm="6" lg="3">
+            <Col xs="12" sm="6" lg="4">
               <Card className="text-white bg-info">
                 <CardBody className="pb-0">
                    <div><h3><strong>Earning</strong>: <strong>&#8358;{sumEarning ? sumEarning : 0}.00</strong></h3></div>
@@ -84,22 +94,13 @@ class Dashboard extends Component {
                 
               </Card>
             </Col>
-            <Col xs="12" sm="6" lg="3">
+            <Col xs="12" sm="6" lg="4">
               <Card className="text-white bg-danger">
                 <CardBody className="pb-0">
                   <div><h3><strong>{networkCount ? networkCount : 0}</strong></h3></div>
                   <div className="mb-4">Total Network</div>
                 </CardBody>
                 
-              </Card>
-            </Col>
-            <Col xs="12" sm="6" lg="3">
-              <Card className="text-white bg-primary">
-                <CardBody className="pb-0">
-                  <div className="text-value">9.823</div>
-                  <div className="mb-4">Indirect Network</div>
-                </CardBody>
-
               </Card>
             </Col>
           </Row>
@@ -141,7 +142,8 @@ const mapDispatchToProps = ( dispatch ) => {
   const dispatchProps = {
     updateParentId: () => dispatch( updateParentId() ),
     getByParentId: () => dispatch( getByParentId() ),
-    getUser: () => dispatch(getUser()),
+    getUser: ( data ) => dispatch( getUser( data ) ),
+    awardBonus: () => dispatch(awardBonus())
   }
   return dispatchProps;
 }

@@ -19,6 +19,14 @@ export const UPDATE_PARENTID_START = "UPDATE_PARENTID_START";
 export const UPDATE_PARENTID_SUCCESS = "UPDATE_PARENTID_SUCCESS";
 export const UPDATE_PARENTID_FAILED = "UPDATE_PARENTID_FAILED";
 
+export const UPDATE_USER_START = "UPDATE_USER_START";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
+
+export const AWARD_BONUS_START = "AWARD_BONUS_START";
+export const AWARD_BONUS_SUCCESS = "AWARD_BONUS_SUCCESS";
+export const AWARD_BONUS_FAILED = "AWARD_BONUS_FAILED";
+
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export const getUserStart = () => {
@@ -41,8 +49,7 @@ export const getUserFailed = ( error ) => {
   }
 }
 
-export const getUser = () => {
-  const userId = isAuthenticated().user._id;
+export const getUser = (userId) => {
   const token = isAuthenticated().token;
   return dispatch => {
     dispatch( getUserStart() );
@@ -56,7 +63,6 @@ export const getUser = () => {
     } )
       .then( response => response.json() )
       .then( resp => {
-        console.log(resp, " user from response")
         if ( resp.error ) {
           dispatch( getUserFailed( resp.error ) );
           return;
@@ -246,6 +252,100 @@ export const updateParentId = () => {
       } )
       .catch( err => {
         dispatch( updateParentIdFailed( err.message ) );
+      } );
+  }
+}
+
+export const updateUserStart = () => {
+  return {
+    type: UPDATE_USER_START
+  }
+}
+
+export const updateUserSuccess = (data) => {
+  return {
+    type: UPDATE_USER_SUCCESS,
+    data
+  }
+}
+
+export const updateUserFailed = (error) => {
+  return {
+    type: UPDATE_USER_FAILED,
+    error
+  }
+}
+
+export const updatedUser = ( data ) => {
+  const userId = isAuthenticated().user._id;
+
+  return dispatch => {
+    dispatch( updateUserStart() );
+    fetch( `${ BASE_URL }/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        ACCEPT: "application/json",
+        "Content-Type": "application/json",
+        "x-auth-token": isAuthenticated().token
+      },
+      body: JSON.stringify( data )
+    } )
+      .then( response => response.json() )
+      .then( resp => {
+        if ( resp.error ) {
+          dispatch( updateUserFailed( resp.error ) );
+          return;
+        }
+        dispatch( updateUserSuccess( resp ) );
+      } )
+      .catch( err => {
+        dispatch( updateUserFailed( "Network Error. Try again" ) );
+      } );
+  }
+}
+
+export const awardBonusStart = () => {
+  return {
+    type: AWARD_BONUS_START
+  }
+}
+
+export const awardBonusSuccess = ( data ) => {
+  return {
+    type: AWARD_BONUS_SUCCESS,
+    data
+  }
+}
+
+export const awardBonusFailed = ( error ) => {
+  return {
+    type: AWARD_BONUS_FAILED,
+    error
+  }
+}
+
+export const awardBonus = () => {
+  const userId = isAuthenticated().user._id;
+  return dispatch => {
+    dispatch( awardBonusStart() );
+    fetch( `${ BASE_URL }/user/bonus/${ userId }`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        ACCEPT: "application/json",
+        "x-auth-token": isAuthenticated().token
+      }
+    } )
+      .then( response => response.json() )
+      .then( resp => {
+        if ( resp.error ) {
+          dispatch( awardBonusFailed( resp.error ) );
+          return;
+        }
+        dispatch( awardBonusSuccess( resp ) );
+      } )
+      .catch( err => {
+        dispatch( awardBonusFailed( "Network Error. Please try again" ) );
       } );
   }
 }

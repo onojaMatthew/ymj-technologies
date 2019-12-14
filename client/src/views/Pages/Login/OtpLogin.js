@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Button, Card, CardBody, CardGroup, Spinner, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import logo from "../../../assets/img/brand/ojirehprime_logo.png";
 
 
 const OtpLogin = ( { errMsg, login, phone, handleChange, onSubmitOtp } ) => {
@@ -12,10 +11,6 @@ const OtpLogin = ( { errMsg, login, phone, handleChange, onSubmitOtp } ) => {
           <CardGroup>
             <Card>
               <CardBody>
-                <Row className="justify-content-md-center m-4">
-                  <img src={logo} alt="logo" />
-                </Row>
-                <p className="text-center">Welcome to Ojirehprime</p>
                 <Form onSubmit={onSubmitOtp}>
                   <p className="text-muted">Kindly verify your phone number</p>
                   {login.error && login.error.length > 0 ? <p style={{ color: "#ff0000" }}>{login.error}</p> : null}

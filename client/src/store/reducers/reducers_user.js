@@ -14,6 +14,12 @@ import {
   UPDATE_PARENTID_START,
   UPDATE_PARENTID_SUCCESS,
   UPDATE_PARENTID_FAILED,
+  UPDATE_USER_START,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
+  AWARD_BONUS_START,
+  AWARD_BONUS_SUCCESS,
+  AWARD_BONUS_FAILED,
 } from "../actions/action_user";
 
 const initialState = {
@@ -23,10 +29,14 @@ const initialState = {
   success: false,
   singleLoading: false,
   singleSuccess: false,
+  updateLoading: false,
+  updateSuccess: false,
   usersLoading: false,
   usersSuccess: false,
   deleteLoading: false,
   deleteSuccess: false,
+  awardSuccess: false,
+  awardLoading: false,
   error: ""
 }
 
@@ -126,6 +136,45 @@ const userReducers = ( state = initialState, action ) => {
         ...state,
         loading: false,
         success: false,
+        error: action.error
+      }
+    case UPDATE_USER_START:
+      return {
+        ...state,
+        updateLoading: true,
+       
+      }
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        updateLoading: false,
+        updatesuccess: true,
+        user: action.data,
+      }
+    case UPDATE_USER_FAILED:
+      return {
+        ...state,
+        updateLoading: false,
+        updatesuccess: false,
+        error: action.error
+      }
+    case AWARD_BONUS_START:
+      return {
+        ...state,
+        awardLoading: true
+      }
+    case AWARD_BONUS_SUCCESS:
+      return {
+        ...state,
+        awardLoading: false,
+        awardSuccess: true,
+        user: action.data,
+      }
+    case AWARD_BONUS_FAILED:
+      return {
+        ...state,
+        awardLoading: false,
+        awardSuccess: false,
         error: action.error
       }
     default:

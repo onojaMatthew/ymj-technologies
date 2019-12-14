@@ -51,8 +51,8 @@ class Users extends Component {
                       <th scope="col">name</th>
                       <th scope="col">Email</th>
                       <th scope="col">Phone</th>
-                      <th scope="col">Role</th>
                       <th scope="col">Joined</th>
+                      <th scope="col">Role</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -79,7 +79,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = ( dispatch ) => {
   const dispatchProps = {
-    getUsers: () => dispatch(getUsers())
+    getUsers: () => dispatch(getUsers()),
   }
 
   return dispatchProps;

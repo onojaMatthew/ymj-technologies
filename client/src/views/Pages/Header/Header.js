@@ -25,47 +25,58 @@ const Header = ( props ) => {
   const styles = {
     nav: {
       color: "#fff"
+    },
+    about: {
+      color: "#333"
     }
   }
-
+  
   return (
     <div className="custom-header">
-      <Navbar color="light" expand="md">
+      <Navbar className="light"  expand="md">
         <Container>
         <NavbarBrand href="/">
           <img src={logo} alt="" />
         </NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+          <NavbarToggler onClick={toggle} className="menu" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-                <NavLink
-                  href={`${process.env.REACT_APP_SITE_URL}`}
-                  style={styles.nav}
-                >Home</NavLink>
+              <NavLink
+                href="https://ojirehprime.com"
+                style={styles.nav}
+              >Home</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret style={styles.nav}>
-                About Us
+                  About Us
               </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <NavLink href={`${ process.env.REACT_APP_SITE_URL }/about-us/#wwd`}>
+                    <NavLink
+                      style={styles.about}
+                      href={`https://ojirehprime.com/about-us/#wwd`}>
                       What We Do
                     </NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href={`${ process.env.REACT_APP_SITE_URL }/about-us/#vision`}>
+                    <NavLink
+                      style={styles.about}
+                      href={`https://ojirehprime.com/about-us/#vision`}>
                       Our Vision, Mission, Core Values
                     </NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href={`${ process.env.REACT_APP_SITE_URL }/about-us/#roadmap`}>
+                    <NavLink
+                      style={styles.about}
+                      href={`https://ojirehprime.com/about-us/#roadmap`}>
                       Roadmap
                     </NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href={`${ process.env.REACT_APP_SITE_URL }/about-us/#team`}>
+                    <NavLink
+                      style={styles.about}
+                      href={`https://ojirehprime.com/about-us/#team`}>
                       Our Team
                     </NavLink>
                   </DropdownItem>
@@ -73,20 +84,20 @@ const Header = ( props ) => {
                 </UncontrolledDropdown>
               <NavItem>
                 <NavLink
-                  href={`${ process.env.REACT_APP_SITE_URL }/faqs`}
+                  href={`https://ojirehprime.com/faqs`}
                   style={styles.nav}
                 >FAQs</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  href={`${ process.env.REACT_APP_SITE_URL }/blog`}
+                  href={`https://ojirehprime.com/blog`}
                   style={styles.nav}
                 >Blog</NavLink>
                 
               </NavItem>
               <NavItem>
                 <NavLink
-                  href={`${ process.env.REACT_APP_SITE_URL }/careers`}
+                  href={`https://ojirehprime.com/careers`}
                   style={styles.nav}
                 >Careers</NavLink>
               </NavItem>

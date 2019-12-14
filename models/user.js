@@ -16,7 +16,7 @@ const userSchema = new Schema( {
       productId: { type: ObjectId, required: true, ref: "Product" },
       quantity: { type: Number, required: true }
     }]
-  }
+  },
   createdAt: { type: Date, default: Date().now }
 },{
   timestamps: true,
@@ -57,6 +57,10 @@ userSchema.methods.removeFromCart = function (productId) {
   return this.save();
 }
 
+userSchema.methods.clearCart = function () {
+  this.cart = { items: [] };
+  return this.save();
+}
 
 /**
  * We generate a token for the user
