@@ -19,7 +19,6 @@ const EditPage = React.lazy( () => import( "./views/Pages/Edit/EditPage" ) );
 const AdminSignup = React.lazy( () => import( "./views/Pages/Admin/AdminSignup" ) );
 
 class App extends Component {
-
   render() {
     return (
       <BrowserRouter>

@@ -46,6 +46,11 @@
   padding: 7px;
   color: #fff;
 }
+.single-prod img {
+  width: 80%;
+  height: auto;
+  margin: 30px;
+}
 @media only screen and (max-width: 480px) {
   .menu {
     background: white !important;

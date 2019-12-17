@@ -33,6 +33,14 @@ const Header = ( props ) => {
     },
     about: {
       color: "#333"
+    },
+    cart: {
+      fontSize: 30,
+      fontWeight: "bolder"
+    },
+    cname: {
+      fontWeight: "bold",
+      marginTop: "-20px"
     }
   }
   
@@ -86,11 +94,11 @@ const Header = ( props ) => {
                     href="/register"
                   >CREATE AN ACCOUNT</NavLink>
                 </DropdownItem>
-                  <DropdownItem>
-                    <i className="cil-cart"></i>
-                </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <NavItem>
+                <i style={styles.cart} className="cil-cart"></i> Cart
+              </NavItem>
             </Nav>
           </Collapse>
         </Container>
