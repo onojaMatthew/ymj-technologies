@@ -17,6 +17,7 @@ const Page404 = React.lazy( () => import( './views/Pages/Page404' ) );
 const AdminSignin = React.lazy( () => import( "./views/Pages/Admin/AdminSignin" ) );
 const EditPage = React.lazy( () => import( "./views/Pages/Edit/EditPage" ) );
 const AdminSignup = React.lazy( () => import( "./views/Pages/Admin/AdminSignup" ) );
+const Cart = React.lazy( () => import( "./views/Cart/Cart" ) );
 
 class App extends Component {
   render() {
@@ -30,7 +31,8 @@ class App extends Component {
             <Route exact path="/editProfile" name="Edit Page" render={(props) => <EditPage {...props}/>} />
             <Route exact path="/signup" name="Sign up" render={props => <AdminSignup {...props} />} />
             <Route exact path="/signin" name="Sign up" render={props => <AdminSignin {...props} />} />
-            <Route exact path="/products/:prodId" name="Product Details" render={(props) => <Product {...props} />} />
+            <Route exact path="/products/:prodId" name="Product Details" render={( props ) => <Product {...props} />} />
+            <Route exact path="/cart" name="Cart" render={(props) => <Cart {...props} />} />
             {Auth.isUserAuthenticated() ? (
               <Route path="/" name="Index" render={props => <DefaultLayout {...props} />} />
             ) : <Redirect to="/home" />}
