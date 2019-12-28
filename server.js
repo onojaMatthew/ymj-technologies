@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
  */
 db();
 app.use( express.static( __dirname ) );
-app.use( express.static( path.join( __dirname, 'client/build' ) ) );
+app.use( express.static( path.join( __dirname, '/client/build' ) ) );
 app.use( morgan( "dev" ) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: false } ) );
